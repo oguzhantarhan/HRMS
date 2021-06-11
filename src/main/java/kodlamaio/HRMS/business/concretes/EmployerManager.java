@@ -66,8 +66,12 @@ private Result isPasswordValid(Employer employer,String password) {
 }
 private Result isDomainEqual(Employer employer) {
 	String[] emailDomain = employer.getEmail().split("@");
-	if(employer.getWebsite().equals(emailDomain[1])) {
-		return new SuccessResult();
+	try {
+		if(employer.getWebsite().equals(emailDomain[1])) {
+			return new SuccessResult();
+		}
+	} catch (Exception e) {
+		return new ErrorResult("invalid email format");
 	}
 	return new ErrorResult("Email domain not match your website");
 }
